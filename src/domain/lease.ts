@@ -1,4 +1,5 @@
 import * as z from "zod";
+import leaseService from "../application/lease-service";
 
 export type Money = number;
 
@@ -59,7 +60,7 @@ export const calculateMonthlyPayment = function(monthlyRate: number, leaseInput:
   return payment;
 };
 
-const round = (n: number) => Math.round(n * 100) / 100;
+export const round = (n: number) => Math.round(n * 100) / 100;
 
 export const createSchedule = function(monthlyPayment: number, monthlyRate: number, leaseInput: LeaseInput): Installment[] {
   let balance = leaseInput.price;
@@ -92,19 +93,15 @@ export const newLeaseFromInput = function(leaseInput: LeaseInput): Lease {
   const monthlyPayment = calculateMonthlyPayment(monthlyRate, leaseInput);
   const schedule = createSchedule(monthlyPayment, monthlyRate, leaseInput);
 
-  const totalPayments = schedule.reduce((sum, installment) => sum + installment.payment, 0) + leaseInput.upfrontFee;
-  const totalInterest = schedule.reduce((sum, installment) => sum + installment.interest, 0);
-  const totalFees = leaseInput.upfrontFee + leaseInput.monthlyFee * leaseInput.termMonths;
-
   return {
     ...leaseInput,
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
     schedule,
     totals: {
-      totalPayments,
-      totalInterest,
-      totalFees,
+      totalPayments: leaseInput.upfrontFee,
+      totalInterest: 0,
+      totalFees: leaseInput.upfrontFee,
     },
   };
 };
