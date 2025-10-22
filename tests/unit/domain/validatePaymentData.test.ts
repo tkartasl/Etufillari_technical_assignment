@@ -30,7 +30,7 @@ describe("validatePaymentData", () => {
      };
 
     const result = validatePaymentData(payment, testLease);
-    console.log(result.message);
+
     expect(result.status).toEqual("Valid");
   });
 
