@@ -1,24 +1,47 @@
 # Etufillari Technical Assignment
 
-A lease management API built with Azure Functions and TypeScript.
+A **lease management API** built with **Azure Functions** and **TypeScript**.
+
+This solution demonstrates a cloud-ready microservice architecture with serverless functions for lease lifecycle management, payment validation, and background processing using Azure Storage Queues.
+
+---
+
+## Features
+
+- **Create Lease** — Create new lease agreements with defined schedules and payment plans.  
+- **Get Lease** — Retrieve existing lease details by ID.  
+- **Create Payment** — Record and validate incoming payments for a lease.  
+- **Get Quote** — Generate a quote for a lease based on provided terms and interest rates.  
+- **Invalid Payment Queue** — Automatically handles late or incorrect payments asynchronously through a queue trigger.  
+- **Health Check** — Verify that the API is running and responding.  
+
+---
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
-- Azure Functions Core Tools
-- npm or yarn
+- **Node.js** (v14 or higher)  
+- **Azure Functions Core Tools**  
+- **npm** or **yarn**  
+- **Azurite** — local Azure Storage emulator required for queue triggers  
 
-## Getting Started
+> ℹ️ Azurite is needed for local testing of the queue-based `invalid-payment-queue` function.
 
-### Installation
+---
 
-Install the project dependencies:
+## Installation
+
+Install project dependencies:
 
 ```bash
 npm install
 ```
+### 1. Start Azurite (required for queue triggers)
 
-### Running the Application
+```bash
+npx azurite
+```
+
+### 2. Start the Azure Functions runtime
 
 Build and start the Azure Functions runtime:
 
@@ -167,4 +190,11 @@ All endpoints (except `/api/health`) require an API key to be included in the re
 
 ```
 x-api-key: local-dev-key
+```
+## Deploying to Azure
+
+In the root folder run:
+
+```bash
+func azure functionapp publish <your-function-app-name>
 ```
