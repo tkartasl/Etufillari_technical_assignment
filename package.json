@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && func start",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist __* AzuriteConfig",
     "test:unit": "jest tests/unit",
     "test:integration": "npm run build && jest /tests/integration/integration.test.ts --runInBand --detectOpenHandles",
     "test": "npm run test:unit && npm run test:integration"
