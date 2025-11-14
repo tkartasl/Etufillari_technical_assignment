@@ -1,6 +1,6 @@
-# Etufillari Technical Assignment
+# Lease management API
 
-A **lease management API** built with **Azure Functions** and **TypeScript**.
+Built with **Azure Functions** and **TypeScript**.
 
 This solution demonstrates a cloud-ready microservice architecture with serverless functions for lease lifecycle management, payment validation, and background processing using Azure Storage Queues.
 
